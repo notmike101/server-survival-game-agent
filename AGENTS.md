@@ -30,6 +30,8 @@ Use `o` for every meaningful chunk/edit and `q` only for reusable rules.
 Keep the active `next` string current. A successor should need one `h` call,
 not a history scan.
 
+If the sqlite file is in a git repository, commit your change after the work is recorded in the ledger.
+
 ## Browser/safety contract
 
 - Use the agent-owned real browser tab only; never take over the user's other
