@@ -4,8 +4,11 @@ Run `python ledger.py h` first; SQLite is the compact source of truth. Goal: liv
 
 ## Rules / controls
 
-- Browser is agent-owned. Use Playwright locators + CUA clicks/screenshots only.
-  `tab.playwright.evaluate()` is read-only; never call/mutate game functions there.
+- Run `python ledger.py audit`; it must report `ok:true` before play.
+- Browser is agent-owned. Use the checked-in numeric `playwright/*.js` files via
+  Playwright `browser_run_code_unsafe` `filename`. Do not improvise coordinates.
+- `browser_evaluate` is read-only. Never click/dispatch events, hide overlays,
+  write storage, call game functions, or touch `STATE`, money, time, or upkeep.
 - Fresh run: visible `Start Survival` = `startGame()`; visible `Skip Tutorial` =
   `tutorial.skip()`. Pause before canvas edits. `#tool-delete` is the real
   Demolish selector (not `#tool-demolish`).
@@ -32,9 +35,12 @@ I -> CDN -> S3
 
 Starter fits `$500`: `WAF40 + API70 + ALB50 + Srv45 + CDN60 + S325 + NoSQL80 + Search120 = $490` (`$10` left).
 
-1. Link/verify starter; normal 8-sec proof; then Fast chunks.
-2. Add Srv2 `$45` when affordable; same ALB + NoSQL/S3/Search fan-out.
-3. Add Cache `$60`; link both handler types -> Cache and Cache -> NoSQL.
+1. Run `00_start_survival.js`, `01_build_starter.js`, screenshot, then
+   `02_prove_starter.js`. The proof must return zero failures and reputation100.
+2. Repeat `03_fast_chunk.js`; log every result. No more than four chunks between
+   screenshot/HUD audits.
+3. At cash >= `$105`, run `04_add_serverless_cache.js` exactly once, screenshot,
+   then continue Fast chunks.
 4. Add Comp1/Comp2 `$60` each; link ALB + Cache/NoSQL/S3/Search. Upgrade each
    via visible hover arrow: T1->T2 `$100` (cap `4->10`), T2->T3 `$160` (cap18).
 5. Upgrade API via visible arrows: T2 `$120` (rate80), T3 `$200` (cap160/rate200).
@@ -54,15 +60,8 @@ Starter fits `$500`: `WAF40 + API70 + ALB50 + Srv45 + CDN60 + S325 + NoSQL80 + S
 - Repair damaged nodes with normal click UI; keep auto-repair ON. Recalibrate
   coordinates after every reflow using screenshot + Select tooltip probes.
 
-## Current live handoff (update this line after each major chunk)
+## Current live handoff
 
-Run 1 max-load failure is stored as rule/run data in `strategy.sqlite`; do not
-reload the narrative. Run `python ledger.py h` for current run/state/rules/next.
-Current run2 is fresh at `t=0`, `$10`, `R=100%`, starter placed/unlinked; next
-action and all new telemetry must be written with `ledger.py`.
-
-## Last known viewport coordinates (reprobe if changed; CSS/viewport, scrollY=0)
-
-`I(582,424) WAF(405,270) API(798,410) ALB(439,580) Srv1(655,650)`
-`Srv2(655,820) Comp1(405,800) Comp2(264,849) Cache(905,810)`
-`NoSQL(905,680) Search(1190,680) S3(1190,269)`.
+Run `python ledger.py h`; SQLite owns the current run/state/next action. The
+driver owns its tested 1920x1080 coordinates. Never copy coordinates out of the
+driver or try to repair a partial script run by guessing.

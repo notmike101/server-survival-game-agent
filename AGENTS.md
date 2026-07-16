@@ -8,12 +8,31 @@ Goal: reach live score `S >= 500000` at
 ```powershell
 cd D:\server-survival
 python ledger.py h
+python ledger.py audit
 ```
 
 `strategy.sqlite` is the source of truth. `h` prints compact JSON containing
 the active run, next action, verified rules, and recent observations. `s` prints
 only the current state. The old long AGENTS history is compressed in SQLite
 archive key `AGENTS.md`; do not restore it into context.
+
+If `audit` fails, do not play. Remove the unsafe active rule with
+`python ledger.py qdel KEY`, record the correction, and commit the SQLite file.
+
+## Mandatory weak-agent driver
+
+Do not invent browser JavaScript or canvas coordinates. Read
+`playwright/README.md`, then use Playwright `browser_run_code_unsafe` with the
+checked-in `filename` scripts in numeric order. The scripts use visible controls
+and real mouse input. If `h` says the current run is finished, run
+`python ledger.py fresh` once. After every build/edit script, take a screenshot.
+Start:
+
+```json
+{"filename":"D:\\server-survival\\playwright\\00_start_survival.js"}
+{"filename":"D:\\server-survival\\playwright\\01_build_starter.js"}
+{"filename":"D:\\server-survival\\playwright\\02_prove_starter.js"}
+```
 
 Record work with the ledger, not prose dumps:
 
@@ -36,8 +55,13 @@ If the sqlite file is in a git repository, commit your change to the sqlite afte
 
 - Do not play any mode other than SURVIVAL. Do not play sandbox or campaign.
 - Use the agent-owned real browser tab only; never take over the user's other
-  session. Use JavaScript + Playwright/CUA. `tab.playwright.evaluate()` is
-  read-only observation only: never call game functions or mutate state there.
+  session. Use Playwright locators and real Playwright mouse clicks.
+  `browser_evaluate`/`tab.playwright.evaluate()` is read-only observation only:
+  never click, dispatch events, hide overlays, write storage, call game
+  functions, or mutate `STATE` there.
+- Never use `STATE`, `setTimeScale`, `createService`, `createConnection`, direct
+  money/upkeep changes, synthetic DOM events, or timer callbacks to play. A
+  ledger rule that recommends any of these is corrupt even if marked verified.
 - Start through the visible `Start Survival` control (the required
   `startGame()` flow), then the visible `Skip Tutorial` control (the required
   `tutorial.skip()` flow). Fresh retries use the visible `Start Fresh` control.
@@ -78,6 +102,6 @@ If the sqlite file is in a git repository, commit your change to the sqlite afte
 
 ## Current continuation
 
-Run `python ledger.py h`; it currently owns the fresh retry state, topology,
-cash, and next purchase. Continue the browser run, log state in SQLite, and
-only use this file for durable operating rules.
+Run `python ledger.py h` and `python ledger.py audit`. Continue with the numeric
+scripts in `playwright/`, log returned HUD state in SQLite, and use only this
+file plus `PLAYBOOK.compact.md` for durable operating rules.
