@@ -30,7 +30,7 @@ Use `o` for every meaningful chunk/edit and `q` only for reusable rules.
 Keep the active `next` string current. A successor should need one `h` call,
 not a history scan.
 
-If the sqlite file is in a git repository, commit your change after the work is recorded in the ledger.
+If the sqlite file is in a git repository, commit your change to the sqlite after the work is recorded in the ledger. This is important to do for auditability and a backup of the history. Failure to do this will result in a failure and you will be banned from playing the game if you do not do this.
 
 ## Browser/safety contract
 
