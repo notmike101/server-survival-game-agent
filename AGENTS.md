@@ -47,6 +47,7 @@ If the sqlite file is in a git repository, commit your change after the work is 
   `#btn-fast`, wait about 3 real seconds, click `#btn-pause`, wait 200-250ms,
   read HUD, and record `o`. Clicking Play after Fast resets normal speed.
   Use short batches (<=4 fast chunks) and verify Pause after each batch.
+- Correctly dissmiss the game over screen and tutorial screens before you start a round. Failure to do this is considered cheating and you will be banned from playing the game. It is extremely important that you do this.
 
 ## Verified game strategy
 
