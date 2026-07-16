@@ -47,7 +47,8 @@ If the sqlite file is in a git repository, commit your change to the sqlite afte
   `#btn-fast`, wait about 3 real seconds, click `#btn-pause`, wait 200-250ms,
   read HUD, and record `o`. Clicking Play after Fast resets normal speed.
   Use short batches (<=4 fast chunks) and verify Pause after each batch.
-- Correctly dissmiss the game over screen and tutorial screens before you start a round. Failure to do this is considered cheating and you will be banned from playing the game. It is extremely important that you do this.
+- Correctly dissmiss the game over screen at the end of an attempt. This is the equivalent to clicking the "Start Fresh" button on the game. Failure to do this is considered cheating and you will be banned from playing the game. It is extremely important that you do this.
+- Correctly dismiss the tutorial screen before you start a round if it is showing. Failure to do this is considered cheating and you will be banned from playing the game. It is extremely important that you do this.
 
 ## Verified game strategy
 
