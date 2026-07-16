@@ -19,7 +19,7 @@ archive key `AGENTS.md`; do not restore it into context.
 If `audit` fails, do not play. Remove the unsafe active rule with
 `python ledger.py qdel KEY`, record the correction, and commit the SQLite file.
 
-## Mandatory weak-agent driver
+## Mandatory driver
 
 Do not invent browser JavaScript or canvas coordinates. Read
 `playwright/README.md`, then use Playwright `browser_run_code_unsafe` with the
