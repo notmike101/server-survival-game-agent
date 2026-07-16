@@ -34,6 +34,7 @@ If the sqlite file is in a git repository, commit your change after the work is 
 
 ## Browser/safety contract
 
+- Do not play any mode other than SURVIVAL. Do not play sandbox or campaign.
 - Use the agent-owned real browser tab only; never take over the user's other
   session. Use JavaScript + Playwright/CUA. `tab.playwright.evaluate()` is
   read-only observation only: never call game functions or mutate state there.
