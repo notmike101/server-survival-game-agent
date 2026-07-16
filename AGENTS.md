@@ -25,7 +25,9 @@ Do not invent browser JavaScript or canvas coordinates. Read
 `playwright/README.md`, then use Playwright `browser_run_code_unsafe` with the
 checked-in `filename` scripts in numeric order. The scripts use visible controls
 and real mouse input. If `h` says the current run is finished, run
-`python ledger.py fresh` once. After every build/edit script, take a screenshot.
+`python ledger.py fresh` once.
+Do not rely on screenshots for context, you MUST use the browser where possible for any validation. If you do take any screenshots, delete them once you're done processing them.
+
 Start:
 
 ```json
